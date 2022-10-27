@@ -1,0 +1,153 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Area {
+  idArea              Int @id @default(autoincrement())
+  descricaoArea       String
+  skill               Skill?
+  // atuacao             Atuacao?
+}
+
+model Atividade {
+  idAtividade         Int @id @default(autoincrement())
+  idTipoAtividade     Int @unique()
+  tituloAtividade     String
+  dataAtividade       String
+  duracaoAtividade    String
+  linkAtividade       String @unique()
+  // tipoAtividade       TipoAtividade @relation(fields: [idTipoAtividade], references: [idTipoAtividade])
+  // participantes       Participantes[]
+}
+
+model Atuacao {
+  idAtuacao           Int @id @default(autoincrement())
+  descricaoAtuacao    String
+  // area                Area @relation(fields: [idArea], references: [idArea])
+  idArea              Int @unique
+  // startup             Startup @relation(fields: [idStartup], references: [idStartup])
+  idStartup           Int @unique
+}
+
+model CategoriaInterna {
+  idCategoria         Int @id @default(autoincrement())
+  // startup             Startup?
+  descricaoCategoria  String
+}
+
+model Empresa {
+  idEmpresa           Int @id @default(autoincrement())
+  nomeFantasiaEmpresa String
+  telefoneEmpresa     String
+  emailContaEmpresa   String
+  cnpjEmpresa         String
+  // pessoa              Pessoa[]
+}
+
+model Funcao {
+  idFuncao            Int @id @default(autoincrement())
+  // pessoa              Pessoa @relation(fields: [idPessoa], references: [idPessoa])
+  idPessoa            Int @unique()
+  // tipoFuncao          TipoFuncao @relation(fields: [IdTipo], references: [idTipo])
+  IdTipo              Int @unique()
+}
+
+model Integrantes {
+  idIntegante         Int @id @default(autoincrement())
+  // pessoa              Pessoa @relation(fields: [idPessoa], references: [idPessoa])
+  idPessoa            Int @unique()
+  // startup             Startup @relation(fields: [idStartup], references: [idStartup])
+  idStartup           Int @unique()
+}
+
+model Participantes {
+  idParticipantes     Int @id @default(autoincrement())
+  // pessoa              Pessoa?
+  idPessoa            Int @unique()
+  // atividade           Atividade @relation(fields: [idAtividade], references: [idAtividade])
+  idAtividade         Int @unique()
+}
+
+model Pessoa {
+  idPessoa            Int @id @default(autoincrement())
+  nomePessoa          String
+  fonePessoa          String
+  emailPessoa         String
+  // empresa             Empresa @relation(fields: [idEmpresa], references: [idEmpresa])
+  idEmpresa          Int? @unique()
+  usuario             Usuario?
+  idUsuario           Int? @unique
+  // pessoaSkill         PessoaSkill?
+  // particiantes        Participantes @relation(fields: [idParticipantes], references: [idPessoa])
+  idParticipantes     Int? @unique
+  // funcao              Funcao?
+  // integrante          Integrantes?
+}
+
+model PessoaSkill {
+  idPessoaSkill       Int @id @default(autoincrement())
+  // pessoa              Pessoa @relation(fields: [idPessoa], references: [idPessoa])
+  idPessoa            Int @unique()
+  // skill               Skill @relation(fields: [idSkill], references: [idSkill])
+  idSkill             Int @unique()      
+}
+
+model Skill {
+  idSkill             Int @id @default(autoincrement())
+  nomeSkill           String
+  nivelSkill          String
+  area                Area @relation(fields: [idArea], references: [idArea])
+  idArea              Int @unique()
+  // pessoaSkill         PessoaSkill?
+}
+
+model Startup {
+  idStartup           Int @id @default(autoincrement())
+  nomeFantasiaStartup String
+  dataCriacaoStartup  String
+  dataEntradaStartup  String
+  imagemStartup       String
+  startupStatus       String
+  // categoria           CategoriaInterna @relation(fields: [idCategoria], references: [idCategoria])
+  idCategoria         Int @unique()
+  // integrantes         Integrantes[]
+  // atuacao             Atuacao[]
+}
+
+model TipoAtividade {
+  idTipoAtividade     Int @id @default(autoincrement())
+  idAtividade         Int @unique()
+  tituloAtividade     String
+  descricaoAtividade  String
+  // atividade           Atividade?
+  atividadeId         Int @unique
+}
+
+model TipoFuncao {
+  idTipo             Int @id @default(autoincrement())
+  nomeFuncao         String
+  descricaoFuncao    String
+  // funcao             Funcao?
+}
+
+model Usuario {
+  idUsuario         Int @id @default(autoincrement())
+  nomeUsuario       String
+  
+  emailUsuario      String @unique
+  hash              String
+  
+  pessoa            Pessoa? @relation(fields: [pessoaIdFk], references: [idPessoa])
+  pessoaIdFk          Int? @unique
+
+  @@map("Usuarios")
+}
+
