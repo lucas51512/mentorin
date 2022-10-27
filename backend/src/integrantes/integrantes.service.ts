@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateIntegranteDto } from './dto/create-integrante.dto';
 import { UpdateIntegranteDto } from './dto/update-integrante.dto';
 
 @Injectable()
 export class IntegrantesService {
-  create(createIntegranteDto: CreateIntegranteDto) {
-    return 'This action adds a new integrante';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createIntegranteDto: CreateIntegranteDto) {
+    return await this.prisma.integrantes.create({
+      data: {
+        ...createIntegranteDto
+      }
+    });
   }
 
-  findAll() {
-    return `This action returns all integrantes`;
+  async findAll() {
+    return this.prisma.integrantes.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} integrante`;
+  async findOne(id: number) {
+    return await this.prisma.integrantes.findUnique({
+      where: {
+        idIntegante: id
+      }
+    });
   }
 
-  update(id: number, updateIntegranteDto: UpdateIntegranteDto) {
-    return `This action updates a #${id} integrante`;
+  async update(id: number, data: UpdateIntegranteDto) {
+    return this.prisma.integrantes.update({
+      where: {
+        idIntegante: id
+      },
+      data
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} integrante`;
+  async remove(id: number) {
+    return this.prisma.integrantes.delete({
+      where: {
+        idIntegante: id
+      }
+    });
   }
 }
