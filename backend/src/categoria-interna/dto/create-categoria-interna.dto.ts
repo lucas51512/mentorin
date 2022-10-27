@@ -1,1 +1,4 @@
-export class CreateCategoriaInternaDto {}
+export class CreateCategoriaInternaDto {
+    idCategoria: number
+    descricaoCategoria: string
+}
