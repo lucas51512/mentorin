@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateParticipanteDto } from './dto/create-participante.dto';
 import { UpdateParticipanteDto } from './dto/update-participante.dto';
 
 @Injectable()
 export class ParticipantesService {
-  create(createParticipanteDto: CreateParticipanteDto) {
-    return 'This action adds a new participante';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createParticipanteDto: CreateParticipanteDto) {
+    return this.prisma.participantes.create({
+      data: {
+        ...createParticipanteDto
+      }
+    });
   }
 
-  findAll() {
-    return `This action returns all participantes`;
+  async findAll() {
+    return this.prisma.participantes.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} participante`;
+  async findOne(id: number) {
+    return await this.prisma.participantes.findUnique({
+      where: {
+        idParticipantes: id
+      }
+    });
   }
 
-  update(id: number, updateParticipanteDto: UpdateParticipanteDto) {
-    return `This action updates a #${id} participante`;
+  async update(id: number, data: UpdateParticipanteDto) {
+    return await this.prisma.participantes.update({
+      where: {
+        idParticipantes: id
+      },
+      data
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} participante`;
+  async remove(id: number) {
+    return await this.prisma.participantes.delete({
+      where: {
+        idParticipantes: id
+      }
+    });
   }
 }
