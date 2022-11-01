@@ -45,15 +45,20 @@ form{
 }
 
 form .iconInput{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+form .iconInput div{
     width: 100%;
     gap: 0.5rem;
-    display: flex;
     align-items: center;
     justify-content: left;
     color: #5a5a5a;
 }
 
-form .iconInput input, form input{
+form .iconInput div input, form input{
     width: 100%;
     height: 2.5rem;
     border: 1px solid #f1f1f1;

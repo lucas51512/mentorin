@@ -6,6 +6,15 @@ import { AddCircle, Info } from "@mui/icons-material";
 import * as Dialog from '@radix-ui/react-dialog'
 import { CadastroMentoria } from "../../../components/cadastroMentoria/cadastroMentoria";
 import { InfosMentoria } from "../../../components/infosMentoria/infosMentoria";
+import { api } from "../../../lib/axios"
+import { useEffect } from "react";
+
+async function fetchUsuarios() {
+    const response = await api.get('api/v1/auth/signin')
+    console.log(response.data)
+}
+
+
 
 export function Mentorias() {
     return (
