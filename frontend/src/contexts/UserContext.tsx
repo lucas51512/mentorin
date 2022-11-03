@@ -4,8 +4,8 @@ import { useNavigate } from "react-router";
 import { api } from "../lib/axios";
 
 interface SignInCredentials{
-    email: string,
-    password: string
+    emailUsuario: string,
+    senha: string
 }
 
 interface UserContextProvidersProp {
@@ -26,11 +26,11 @@ export function UserContextProvider({ children }: UserContextProvidersProp) {
     const navigate = useNavigate()
     const isAuthenticated = false;
 
-    async function signIn({ email, password }: SignInCredentials){
+    async function signIn({ emailUsuario, senha }: SignInCredentials){
         try {
-            const response = await api.post('api/v1/auth/signin', {
-                email, 
-                password
+            const response = await api.post('/api/v1/auth/signin', {
+                emailUsuario, 
+                senha
             })
     
             console.log(response.data)

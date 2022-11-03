@@ -19,8 +19,8 @@ interface ErrorsType {
 }
 
 const schema = zod.object({
-    email: zod.string().email('Digite um email válido').nonempty('Digite seu email'),
-    password: zod.string().min(8, 'A senha deve conter pelo menos 8 carácteres').nonempty('Digite sua senha'),
+    emailUsuario: zod.string().email('Digite um email válido').nonempty('Digite seu email'),
+    senha: zod.string().min(6, 'A senha deve conter pelo menos 8 carácteres').nonempty('Digite sua senha'),
 })
 
 type NewFormData = zod.infer<typeof schema>
@@ -32,8 +32,8 @@ export function SignIn() {
     const { register, handleSubmit, reset, formState } = useForm<NewFormData>({
         resolver: zodResolver(schema),
         defaultValues: {
-            email: '',
-            password: '',
+            emailUsuario: '',
+            senha: '',
         }
     })
 
@@ -50,6 +50,7 @@ export function SignIn() {
     }
 
     async function handleNewSignIn(data: NewFormData){
+
        await signIn(data)
     }
 
@@ -66,14 +67,14 @@ export function SignIn() {
                     <div className={styles.iconInput}>
                         <div>
                             <MailOutline fontSize="small" />
-                            <input placeholder="Email" id="email" {...register('email')} />
+                            <input placeholder="Email" id="email" {...register('emailUsuario')} />
                         </div>
                         <span>{errors.email?.message}</span>
                     </div>
                     <div className={styles.iconInput}>
                         <div>
                             <LockOutlined fontSize="small" />
-                            <input type="password" id="password" placeholder="Senha"  {...register('password')} />
+                            <input type="password" id="password" placeholder="Senha"  {...register('senha')} />
                         </div>
                         <span>{errors.password?.message}</span>
                     </div>
