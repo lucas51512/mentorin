@@ -7,7 +7,7 @@ import imgLogo from "../../assets/imgLogo.svg"
 
 export function Sidebar() {
 
-    const { userData } = useContext(UserContext)
+    const { user } = useContext(UserContext)
 
     return (
         <div className={styles.container}>
@@ -16,9 +16,9 @@ export function Sidebar() {
                     <img src={imgLogo} alt='' />
                 </div>
                 <div className={styles.user}>
-                    {userData.photoURL && <img src={userData.photoURL} alt="foto" />}
+                    <img src='' alt="foto" />
                     <div className={styles.userInfo}>
-                        <h1>{userData.displayName}</h1>
+                        <h1>{user}</h1>
                         <p>Fomenta Vale</p>
                         <span><div className={styles.status} /> Online</span>
                     </div>

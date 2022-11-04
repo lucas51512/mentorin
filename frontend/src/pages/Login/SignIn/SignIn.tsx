@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useForm, useFormContext, FormProvider } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Google, LockOutlined, MailOutline } from "@mui/icons-material";
 import styles from "./SignIn.module.css";
 import imgLogo from "../../../assets/imgLogo2.svg"
@@ -20,34 +20,22 @@ interface ErrorsType {
 
 const schema = zod.object({
     emailUsuario: zod.string().email('Digite um email válido').nonempty('Digite seu email'),
-    senha: zod.string().min(6, 'A senha deve conter pelo menos 8 carácteres').nonempty('Digite sua senha'),
+    senha: zod.string().min(6, 'A senha deve conter pelo menos 6 carácteres').nonempty('Digite sua senha'),
 })
 
 type NewFormData = zod.infer<typeof schema>
 
 export function SignIn() {
 
-    const { signIn, createNewUser } = useContext(UserContext)
+    const { signIn } = useContext(UserContext)
 
-    const { register, handleSubmit, reset, formState } = useForm<NewFormData>({
+    const { register, handleSubmit, formState } = useForm<NewFormData>({
         resolver: zodResolver(schema),
         defaultValues: {
             emailUsuario: '',
             senha: '',
         }
     })
-
-    function handleGoogleSignIn() {
-        const provider = new GoogleAuthProvider()
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                createNewUser(result.user)
-
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
 
     async function handleNewSignIn(data: NewFormData){
 
@@ -67,16 +55,16 @@ export function SignIn() {
                     <div className={styles.iconInput}>
                         <div>
                             <MailOutline fontSize="small" />
-                            <input placeholder="Email" id="email" {...register('emailUsuario')} />
+                            <input placeholder="Email" id="emailUsuario" {...register('emailUsuario')} />
                         </div>
-                        <span>{errors.email?.message}</span>
+                        <span>{errors.emailUsuario?.message}</span>
                     </div>
                     <div className={styles.iconInput}>
                         <div>
                             <LockOutlined fontSize="small" />
-                            <input type="password" id="password" placeholder="Senha"  {...register('senha')} />
+                            <input type="password" id="senha" placeholder="Senha"  {...register('senha')} />
                         </div>
-                        <span>{errors.password?.message}</span>
+                        <span>{errors.senha?.message}</span>
                     </div>
                     <div className={styles.formOptions}>
                         <div className={styles.checkbox}>
@@ -91,7 +79,7 @@ export function SignIn() {
                         <a>Login</a>
                     </button>
                     <div className={styles.options}>
-                        <button className={styles.google} type="button" onClick={handleGoogleSignIn}>
+                        <button className={styles.google} type="button">
                             <Google /> Entre com o Google
                         </button>
                     </div>

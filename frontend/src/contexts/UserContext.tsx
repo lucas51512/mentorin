@@ -2,8 +2,15 @@ import { createContext, ReactNode, useState } from "react";
 import { User } from 'firebase/auth'
 import { useNavigate } from "react-router";
 import { api } from "../lib/axios";
+import { setCookie } from "nookies";
 
 interface SignInCredentials{
+    emailUsuario: string,
+    senha: string
+}
+
+interface SignUpCredentials{
+    nomeUsuario: string,
     emailUsuario: string,
     senha: string
 }
@@ -14,17 +21,21 @@ interface UserContextProvidersProp {
 
 interface UserContextType {
     userData: User,
-    createNewUser: (data?: User) => void
+    signUp(credentials: SignInCredentials): Promise<void>
     signIn(credentials: SignInCredentials): Promise<void>
     isAuthenticated: boolean
+    user: string
 }
 
 export const UserContext = createContext({} as UserContextType)
 
 export function UserContextProvider({ children }: UserContextProvidersProp) {
 
+    const [user, setUser] = useState('')
+    const [userData, setUserData] = useState<User>({} as User)
+
     const navigate = useNavigate()
-    const isAuthenticated = false;
+    const isAuthenticated = !!user;
 
     async function signIn({ emailUsuario, senha }: SignInCredentials){
         try {
@@ -32,24 +43,38 @@ export function UserContextProvider({ children }: UserContextProvidersProp) {
                 emailUsuario, 
                 senha
             })
-    
+
+            const { acess_token } = response.data
+
+            setCookie(undefined, 'carcara.token', acess_token, {
+                maxAge: 60 * 60 * 24 * 30,
+                path: '/'
+            })
+            
+            setUser(emailUsuario)
             console.log(response.data)
+            navigate("/home")
         } catch(err) {
             console.log(err)
         }
     }
 
-    const [userData, setUserData] = useState<User>({} as User)
-
-    function createNewUser(data?: User){
-        setUserData(data!)
-        navigate("/home")
+    async function signUp({ nomeUsuario, emailUsuario, senha }: SignUpCredentials){
+        try {
+            const response = await api.post('/api/v1/auth/signup', {
+                nomeUsuario,
+                emailUsuario, 
+                senha
+            })
+            console.log(response.data)
+            navigate("/")
+        } catch(err) {
+            console.log(err)
+        }
     }
 
-    console.log(userData)
-
     return (
-        <UserContext.Provider value={{userData, createNewUser, signIn, isAuthenticated}}>
+        <UserContext.Provider value={{user, userData, signUp, signIn, isAuthenticated}}>
             {children}
         </UserContext.Provider>
     )
