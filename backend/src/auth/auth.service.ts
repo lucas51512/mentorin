@@ -20,6 +20,8 @@ export class AuthService {
         data: {
           nomeUsuario:dto.nomeUsuario,
           emailUsuario: dto.emailUsuario,
+          
+          numeroCelular: dto.numeroCelular,
           hash,
         },
       });
