@@ -20,7 +20,7 @@ export class AuthService {
         data: {
           nomeUsuario:dto.nomeUsuario,
           emailUsuario: dto.emailUsuario,
-          
+          dataNascimento: dto.dataNascimento,
           numeroCelular: dto.numeroCelular,
           hash,
         },

@@ -21,7 +21,11 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SmtpModule } from './smtp/smtp.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, AreaModule, AtividadeModule, AtuacaoModule, CategoriaInternaModule, EmpresaModule, FuncaoModule, IntegrantesModule, ParticipantesModule, PessoaModule, PessoaSkillModule, SkillModule, StartupModule, TipoAtividadeModule, TipoFuncaoModule, UsuarioModule, SmtpModule],
+  imports: [AuthModule, PrismaModule, AreaModule, AtividadeModule, 
+    AtuacaoModule, CategoriaInternaModule, EmpresaModule, FuncaoModule, 
+    IntegrantesModule, ParticipantesModule, PessoaModule, PessoaSkillModule, 
+    SkillModule, StartupModule, TipoAtividadeModule, TipoFuncaoModule, 
+    UsuarioModule, SmtpModule,],
   controllers: [AppController],
   providers: [AppService],
 })
