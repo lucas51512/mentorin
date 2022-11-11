@@ -3,6 +3,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import styles from "./cadastroMentoria.module.css";
 
+// formulário de cadastro de mentoria, utilizando a biblioteca radix
+
 export function CadastroMentoria() {
     return (
         <Dialog.Portal>

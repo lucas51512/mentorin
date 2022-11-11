@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { CameraAlt, Check, Clear, Email, LinkedIn, Wallpaper, WhatsApp } from "@mui/icons-material";
 import imgUser from '../../../assets/imgUser.jpg'
 
+/* Página para editar perfil do usuário */
+
 export function Profile() {
 
     const { userData } = useContext(UserContext)

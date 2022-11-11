@@ -7,6 +7,8 @@ import { Mentorias } from "./pages/Home/Mentorias/Mentorias"
 import { ForgetPassword } from "./pages/Login/ForgetPassword/ForgetPassword"
 import { Profile } from "./pages/Home/Profile/Profile"
 
+/* Arquivo para controlar as rotas da aplicacao */
+
 export function Router() {
     return (
         <Routes>

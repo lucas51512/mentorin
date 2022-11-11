@@ -14,6 +14,8 @@ interface ErrorsType {
     }
 }
 
+/* a const schema abaixo define o corpo do formlário de cadastro, está sendo utilizado a biblioteca zod */
+
 const schema = zod.object({
     nomeUsuario: zod.string().nonempty('Digite seu nome completo'),
     // lastName: zod.string().nonempty('Digite seu nome completo'),

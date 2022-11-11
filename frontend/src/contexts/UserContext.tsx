@@ -34,9 +34,13 @@ export function UserContextProvider({ children }: UserContextProvidersProp) {
     const [user, setUser] = useState('')
     const [userData, setUserData] = useState<User>({} as User)
 
-    const navigate = useNavigate()
+    // constante para navegar entre as páginas
+    const navigate = useNavigate() 
+    
+    // constante para verificar se o usuário esta logado para acessar determinadas partes da aplicação
     const isAuthenticated = !!user;
 
+    // funcao para verificar se existe o usário com o email e senha passados no formulário de login
     async function signIn({ emailUsuario, senha }: SignInCredentials){
         try {
             const response = await api.post('/api/v1/auth/signin', {
@@ -59,6 +63,7 @@ export function UserContextProvider({ children }: UserContextProvidersProp) {
         }
     }
 
+    // função para cadastrar um novo usuário
     async function signUp({ nomeUsuario, emailUsuario, senha }: SignUpCredentials){
         try {
             const response = await api.post('/api/v1/auth/signup', {

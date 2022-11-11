@@ -9,12 +9,14 @@ import { InfosMentoria } from "../../../components/infosMentoria/infosMentoria";
 import { api } from "../../../lib/axios"
 import { useEffect } from "react";
 
+/* Função para verificar se o usuário está logado, caso não esteja, ele iráretornar a pagina de login */
+
 async function fetchUsuarios() {
     const response = await api.get('api/v1/auth/signin')
     console.log(response.data)
 }
 
-
+/* Tela para a listagem de mentorias que o usuário cadastrou ou participou */
 
 export function Mentorias() {
     return (
@@ -22,6 +24,7 @@ export function Mentorias() {
             <div className={styles.header}>
                 <div className={styles.title}>
                     <h1>Mentorias</h1>
+                    {/* botão para cadastro de mentoria, utilizando biblioteca radix */}
                     <Dialog.Root>
                         <Dialog.Trigger asChild>
                             <button> <AddCircle fontSize="large" color="success" /> </button>

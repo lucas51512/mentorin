@@ -4,6 +4,8 @@ import imgConcloud from '../../assets/concloudLogo.svg'
 import imgUser from '../../assets/imgUser.jpg'
 import styles from "./infosMentoria.module.css";
 
+// modal utilizando para exibir as informações da mentoria selecionada
+
 export function InfosMentoria() {
     return (
         <Dialog.Portal>

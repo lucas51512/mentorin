@@ -9,6 +9,8 @@ export function Sidebar() {
 
     const { user } = useContext(UserContext)
 
+    // componente sidebar (a coluna da esquerda), para navegação dentro do sistema
+
     return (
         <div className={styles.container}>
             <div className={styles.sidebar}>
