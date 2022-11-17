@@ -18,14 +18,14 @@ import { AtuacaoModule } from './atuacao/atuacao.module';
 import { AtividadeModule } from './atividade/atividade.module';
 import { AreaModule } from './area/area.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { SmtpModule } from './smtp/smtp.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [AuthModule, PrismaModule, AreaModule, AtividadeModule, 
     AtuacaoModule, CategoriaInternaModule, EmpresaModule, FuncaoModule, 
     IntegrantesModule, ParticipantesModule, PessoaModule, PessoaSkillModule, 
     SkillModule, StartupModule, TipoAtividadeModule, TipoFuncaoModule, 
-    UsuarioModule, SmtpModule,],
+    UsuarioModule, MailModule,],
   controllers: [AppController],
   providers: [AppService],
 })
