@@ -141,7 +141,7 @@ model TipoFuncao {
 model Usuario {
   idUsuario         Int @id @default(autoincrement())
   nomeUsuario       String
-  dataNascimento    DateTime
+  dataNascimento    String
   numeroCelular     String
   
   emailUsuario      String @unique
